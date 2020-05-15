@@ -3,12 +3,26 @@ import React from "react";
 import Logo from "../../assets/logo.gif";
 
 import "./header.scss";
+import { withRouter } from "react-router-dom";
 
-const Header = () => (
+const Header = ({ history }) => (
   <header>
     <div className="left">
-      <img src={Logo} alt="logo" />
-      <span className="name">Hacker News</span>
+      <img
+        src={Logo}
+        alt="logo"
+        onClick={() => {
+          history.push("/");
+        }}
+      />
+      <span
+        className="name"
+        onClick={() => {
+          history.push("/");
+        }}
+      >
+        Hacker News
+      </span>
       <span>new</span>
       <span>comments</span>
     </div>
@@ -16,4 +30,4 @@ const Header = () => (
   </header>
 );
 
-export default Header;
+export default withRouter(Header);
