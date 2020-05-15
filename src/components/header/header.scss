@@ -22,6 +22,7 @@ header {
     margin: 0 10px;
     display: inline-block;
     vertical-align: middle;
+    cursor: pointer;
     &:after {
       border: 1px solid black;
       content: "";
@@ -40,7 +41,6 @@ header {
 
   .name {
     font-weight: 500;
-    cursor: pointer;
 
     &::after {
       border: none;

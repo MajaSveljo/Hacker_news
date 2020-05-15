@@ -24,7 +24,13 @@ const Header = ({ history }) => (
         Hacker News
       </span>
       <span>new</span>
-      <span>comments</span>
+      <span
+        onClick={() => {
+          history.push("/ask");
+        }}
+      >
+        ask
+      </span>
     </div>
     <div className="right">login</div>
   </header>
