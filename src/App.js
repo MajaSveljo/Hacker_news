@@ -4,7 +4,7 @@ import "./App.css";
 
 import HomePage from "./pages/homaepage";
 import CommentsPage from "./pages/comments";
-import Header from "./components/header";
+import Header from "./components/header/header";
 
 function App() {
   return (
