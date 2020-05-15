@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import "./App.css";
 
 import Header from "./components/header/header";
+import Footer from "./components/footer/footer";
 import HomePage from "./pages/homaepage";
 import CommentsPage from "./pages/comments";
 import AskPage from "./pages/ask";
@@ -16,6 +17,7 @@ function App() {
         <Route exact path="/item/:id" component={CommentsPage} />
         <Route exact path="/ask" component={AskPage} />
       </Switch>
+      <Footer />
     </div>
   );
 }
