@@ -1,5 +1,7 @@
 .App {
   font-size: 10pt;
+  width: 85%;
+  margin: 0 auto;
 }
 
 .App-logo {
