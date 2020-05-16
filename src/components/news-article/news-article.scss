@@ -16,10 +16,12 @@
       font-size: 10pt;
     }
 
-    &--link {
+    &--link,
+    a {
       font-size: 8pt;
       color: $text-gray;
       cursor: pointer;
+      text-decoration: none;
     }
 
     &--properties {
