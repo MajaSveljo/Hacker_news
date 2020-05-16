@@ -65,7 +65,6 @@ const NewsArticle = ({
         <div className="news-article__data-container--properties">
           {points ? points : "00"} points by {user ? user : "user"}{" "}
           {time ? formatArticlePostTime(time) : "1 hour"} ago{" "}
-          {/* {formatArticlePostTime(time)}; */}
           <span className="pointer">
             {commentsNumber ? `${commentsNumber} comments` : "discuss"}
           </span>
