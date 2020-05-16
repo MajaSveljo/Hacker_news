@@ -16,7 +16,6 @@ header {
   .left,
   .right {
     display: flex;
-    align-items: center;
   }
 
   span {
@@ -28,10 +27,10 @@ header {
     &:after {
       border: 1px solid black;
       content: "";
-      height: 70%;
+      height: 65%;
       position: absolute;
       right: -12px;
-      top: 10%;
+      top: 12%;
     }
 
     &:last-child {

@@ -1,0 +1,34 @@
+@import "../../colors.scss";
+
+.news-article {
+  padding: 5px 10px;
+  display: flex;
+
+  &__order-number {
+    color: $text-gray;
+    font-size: 10pt;
+    margin-right: 10px;
+  }
+
+  &__data-container {
+    &--header {
+      margin-right: 5px;
+      font-size: 10pt;
+    }
+
+    &--link {
+      font-size: 8pt;
+      color: $text-gray;
+      cursor: pointer;
+    }
+
+    &--properties {
+      color: $text-gray;
+      font-size: 7pt;
+
+      .pointer {
+        cursor: pointer;
+      }
+    }
+  }
+}
