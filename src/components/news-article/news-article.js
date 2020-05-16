@@ -21,8 +21,33 @@ const NewsArticle = ({
     return formattedUrl;
   };
 
+  const formatArticlePostTime = (time) => {
+    let currentTimeInSeconds = new Date();
+    currentTimeInSeconds = currentTimeInSeconds.getTime() / 1000;
+
+    const formattedTime = Math.floor((currentTimeInSeconds - time) / 60 / 60);
+    const formattedTimeInMinutes = Math.floor(
+      (currentTimeInSeconds - time) / 60
+    );
+
+    if (formattedTime > 23) {
+      return "1 day";
+    }
+
+    switch (formattedTime) {
+      case 0:
+        return `${formattedTimeInMinutes} minutes`;
+
+      case 1:
+        return `${formattedTime} hour`;
+
+      default:
+        return `${formattedTime} hours`;
+    }
+  };
+
   return (
-    <div className={"news-article" + " " + className}>
+    <div className={"news-article " + className}>
       <span className="news-article__order-number">
         {orderNumber ? orderNumber : "0"}.
       </span>
@@ -33,13 +58,14 @@ const NewsArticle = ({
         </span>
         <span className="news-article__data-container--link">
           <a href={website} target="_blank">
-            {website ? formatUrl(website) : ""}
+            {website ? `(${formatUrl(website)})` : ""}
           </a>
         </span>
 
         <div className="news-article__data-container--properties">
           {points ? points : "00"} points by {user ? user : "user"}{" "}
-          {time ? time : "1 hour"} ago{" "}
+          {time ? formatArticlePostTime(time) : "1 hour"} ago{" "}
+          {/* {formatArticlePostTime(time)}; */}
           <span className="pointer">
             {commentsNumber ? commentsNumber : "00"} comments
           </span>

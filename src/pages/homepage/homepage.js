@@ -21,10 +21,6 @@ const HomePage = () => {
     }
   }, [topStoriesIds]);
 
-  useEffect(() => {
-    console.log("currStor", currentTopStories);
-  }, [currentTopStories]);
-
   const fetchTopStoriesIds = async () => {
     const res = await axios.get(
       "https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty"
