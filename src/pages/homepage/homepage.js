@@ -16,7 +16,12 @@ const HomePage = () => {
   useEffect(() => {
     if (topStoriesIds.length) {
       for (let i = 0; i < 30; i += 1) {
-        fetchItem(topStoriesIds[i], currentTopStories, setCurrentTopStories);
+        fetchItem(topStoriesIds[i]).then((object) =>
+          setCurrentTopStories((currentTopStories) => [
+            ...currentTopStories,
+            object,
+          ])
+        );
       }
     }
   }, [topStoriesIds]);
@@ -29,12 +34,12 @@ const HomePage = () => {
     setTopStoriesIds(res.data);
   };
 
-  const fetchItem = async (itemId, stateVariable, stateHook) => {
+  const fetchItem = async (itemId) => {
     const res = await axios.get(
       `https://hacker-news.firebaseio.com/v0/item/${itemId}.json?print=pretty`
     );
 
-    stateHook((stateVariable) => [...stateVariable, res.data]);
+    return res.data;
   };
 
   return (

@@ -67,7 +67,7 @@ const NewsArticle = ({
           {time ? formatArticlePostTime(time) : "1 hour"} ago{" "}
           {/* {formatArticlePostTime(time)}; */}
           <span className="pointer">
-            {commentsNumber ? commentsNumber : "00"} comments
+            {commentsNumber ? `${commentsNumber} comments` : "discuss"}
           </span>
         </div>
       </div>
