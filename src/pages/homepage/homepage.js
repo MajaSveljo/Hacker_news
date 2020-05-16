@@ -43,14 +43,22 @@ const HomePage = () => {
 
   return (
     <div className="homepage">
-      <NewsArticle />
-      <NewsArticle />
-
       {currentTopStories.length === 30
         ? currentTopStories.map((element, idx) => (
-            <div key={idx}>{element.by}</div>
+            <NewsArticle
+              key={idx}
+              orderNumber={idx + 1}
+              header={element.title}
+              website={element.url}
+              points={element.score}
+              user={element.by}
+              time={element.time}
+              commentsNumber={element.descendants}
+            />
           ))
-        : null}
+        : [...Array(30)].map((element, index) => (
+            <NewsArticle key={index} className="placeholder" />
+          ))}
     </div>
   );
 };
