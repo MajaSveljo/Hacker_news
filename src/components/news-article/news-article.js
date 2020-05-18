@@ -57,7 +57,7 @@ const NewsArticle = ({
           {header ? header : "Placeholder text for article header"}
         </span>
         <span className="news-article__data-container--link">
-          <a href={website} target="_blank">
+          <a href={website} target="_blank" rel="noopener noreferrer">
             {website ? `(${formatUrl(website)})` : ""}
           </a>
         </span>

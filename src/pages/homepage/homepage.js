@@ -4,27 +4,43 @@ import axios from "axios";
 import "./homepage.scss";
 
 import NewsArticle from "../../components/news-article/news-article";
+import Pagination from "../../components/pagination/pagination";
 
 const HomePage = () => {
   const [topStoriesIds, setTopStoriesIds] = useState([]);
   const [currentTopStories, setCurrentTopStories] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [articlesPerPage] = useState(30);
 
   useEffect(() => {
     fetchTopStoriesIds();
   }, []);
 
+  const getCurrentPageData = async (itemsIds, currPage) => {
+    const currentIds = itemsIds.slice(
+      (currPage - 1) * articlesPerPage,
+      currPage * articlesPerPage
+    );
+
+    let items = await Promise.all(
+      currentIds.map(async (articleId) => {
+        let res = await fetchItem(articleId);
+        return res;
+      })
+    );
+
+    return items;
+  };
+
   useEffect(() => {
     if (topStoriesIds.length) {
-      for (let i = 0; i < 30; i += 1) {
-        fetchItem(topStoriesIds[i]).then((object) =>
-          setCurrentTopStories((currentTopStories) => [
-            ...currentTopStories,
-            object,
-          ])
-        );
-      }
+      setCurrentTopStories([]);
+
+      getCurrentPageData(topStoriesIds, currentPage).then((items) =>
+        setCurrentTopStories(items)
+      );
     }
-  }, [topStoriesIds]);
+  }, [topStoriesIds, currentPage]);
 
   const fetchTopStoriesIds = async () => {
     const res = await axios.get(
@@ -42,13 +58,15 @@ const HomePage = () => {
     return res.data;
   };
 
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div className="homepage">
-      {currentTopStories.length === 30
+      {currentTopStories.length
         ? currentTopStories.map((element, idx) => (
             <NewsArticle
               key={idx}
-              orderNumber={idx + 1}
+              orderNumber={idx + 1 + (currentPage - 1) * articlesPerPage}
               header={element.title}
               website={element.url}
               points={element.score}
@@ -57,9 +75,15 @@ const HomePage = () => {
               commentsNumber={element.descendants}
             />
           ))
-        : [...Array(30)].map((element, index) => (
+        : [...Array(articlesPerPage)].map((element, index) => (
             <NewsArticle key={index} className="placeholder" />
           ))}
+
+      <Pagination
+        itemsPerPage={articlesPerPage}
+        totalItems={topStoriesIds.length}
+        paginate={paginate}
+      />
     </div>
   );
 };
