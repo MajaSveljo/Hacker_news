@@ -18,8 +18,9 @@ const HomePage = () => {
 
   useEffect(() => {
     if (topStoriesIds.length) {
+      setCurrentTopStories([]);
       for (let i = 0; i < 30; i += 1) {
-        fetchItem(topStoriesIds[i]).then((object) =>
+        fetchItem(topStoriesIds[i + (currentPage - 1) * 30]).then((object) =>
           setCurrentTopStories((currentTopStories) => [
             ...currentTopStories,
             object,
@@ -27,7 +28,7 @@ const HomePage = () => {
         );
       }
     }
-  }, [topStoriesIds]);
+  }, [topStoriesIds, currentPage]);
 
   const fetchTopStoriesIds = async () => {
     const res = await axios.get(
@@ -53,7 +54,7 @@ const HomePage = () => {
         ? currentTopStories.map((element, idx) => (
             <NewsArticle
               key={idx}
-              orderNumber={idx + 1}
+              orderNumber={idx + 1 + (currentPage - 1) * 30}
               header={element.title}
               website={element.url}
               points={element.score}
@@ -65,8 +66,6 @@ const HomePage = () => {
         : [...Array(30)].map((element, index) => (
             <NewsArticle key={index} className="placeholder" />
           ))}
-
-      <br />
 
       <Pagination
         itemsPerPage={articlesPerPage}
