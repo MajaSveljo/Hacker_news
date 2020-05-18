@@ -16,17 +16,29 @@ const HomePage = () => {
     fetchTopStoriesIds();
   }, []);
 
+  const getCurrentPageData = async (itemsIds, currPage) => {
+    const currentIds = itemsIds.slice(
+      (currPage - 1) * articlesPerPage,
+      currPage * articlesPerPage
+    );
+
+    let items = await Promise.all(
+      currentIds.map(async (articleId) => {
+        let res = await fetchItem(articleId);
+        return res;
+      })
+    );
+
+    return items;
+  };
+
   useEffect(() => {
     if (topStoriesIds.length) {
       setCurrentTopStories([]);
-      for (let i = 0; i < 30; i += 1) {
-        fetchItem(topStoriesIds[i + (currentPage - 1) * 30]).then((object) =>
-          setCurrentTopStories((currentTopStories) => [
-            ...currentTopStories,
-            object,
-          ])
-        );
-      }
+
+      getCurrentPageData(topStoriesIds, currentPage).then((items) =>
+        setCurrentTopStories(items)
+      );
     }
   }, [topStoriesIds, currentPage]);
 
@@ -50,11 +62,11 @@ const HomePage = () => {
 
   return (
     <div className="homepage">
-      {currentTopStories.length === articlesPerPage
+      {currentTopStories.length
         ? currentTopStories.map((element, idx) => (
             <NewsArticle
               key={idx}
-              orderNumber={idx + 1 + (currentPage - 1) * 30}
+              orderNumber={idx + 1 + (currentPage - 1) * articlesPerPage}
               header={element.title}
               website={element.url}
               points={element.score}
@@ -63,7 +75,7 @@ const HomePage = () => {
               commentsNumber={element.descendants}
             />
           ))
-        : [...Array(30)].map((element, index) => (
+        : [...Array(articlesPerPage)].map((element, index) => (
             <NewsArticle key={index} className="placeholder" />
           ))}
 
