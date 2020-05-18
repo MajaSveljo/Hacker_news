@@ -14,14 +14,20 @@
     &--header {
       margin-right: 5px;
       font-size: 10pt;
+
+      a {
+        text-decoration: none;
+        color: black;
+      }
     }
 
-    &--link,
-    a {
-      font-size: 8pt;
-      color: $text-gray;
-      cursor: pointer;
-      text-decoration: none;
+    &--link {
+      a {
+        font-size: 8pt;
+        color: $text-gray;
+        cursor: pointer;
+        text-decoration: none;
+      }
     }
 
     &--properties {
