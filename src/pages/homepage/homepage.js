@@ -16,7 +16,7 @@ const HomePage = () => {
     fetchTopStoriesIds();
   }, []);
 
-  const getCurrentPageData = async (itemsIds, currPage) => {
+  const getPaginatedCurrentPageData = async (itemsIds, currPage) => {
     const currentIds = itemsIds.slice(
       (currPage - 1) * articlesPerPage,
       currPage * articlesPerPage
@@ -36,7 +36,7 @@ const HomePage = () => {
     if (topStoriesIds.length) {
       setCurrentTopStories([]);
 
-      getCurrentPageData(topStoriesIds, currentPage).then((items) =>
+      getPaginatedCurrentPageData(topStoriesIds, currentPage).then((items) =>
         setCurrentTopStories(items)
       );
     }
@@ -73,6 +73,8 @@ const HomePage = () => {
               user={element.by}
               time={element.time}
               commentsNumber={element.descendants}
+              kids={element.kids}
+              id={element.id}
             />
           ))
         : [...Array(articlesPerPage)].map((element, index) => (
