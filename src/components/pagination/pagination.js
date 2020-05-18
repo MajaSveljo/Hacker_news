@@ -1,5 +1,7 @@
 import React from "react";
 
+import "./pagination.scss";
+
 const Pagination = ({ itemsPerPage, totalItems, paginate }) => {
   const pageNumbers = [];
 
@@ -8,7 +10,7 @@ const Pagination = ({ itemsPerPage, totalItems, paginate }) => {
   }
 
   return (
-    <nav>
+    <nav className="pagination">
       <ul>
         {pageNumbers.map((number) => (
           <li key={number} onClick={() => paginate(number)}>
