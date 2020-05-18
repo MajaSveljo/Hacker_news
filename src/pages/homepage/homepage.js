@@ -4,10 +4,13 @@ import axios from "axios";
 import "./homepage.scss";
 
 import NewsArticle from "../../components/news-article/news-article";
+import Pagination from "../../components/pagination/pagination";
 
 const HomePage = () => {
   const [topStoriesIds, setTopStoriesIds] = useState([]);
   const [currentTopStories, setCurrentTopStories] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [articlesPerPage] = useState(30);
 
   useEffect(() => {
     fetchTopStoriesIds();
@@ -42,9 +45,11 @@ const HomePage = () => {
     return res.data;
   };
 
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div className="homepage">
-      {currentTopStories.length === 30
+      {currentTopStories.length === articlesPerPage
         ? currentTopStories.map((element, idx) => (
             <NewsArticle
               key={idx}
@@ -60,6 +65,14 @@ const HomePage = () => {
         : [...Array(30)].map((element, index) => (
             <NewsArticle key={index} className="placeholder" />
           ))}
+
+      <br />
+
+      <Pagination
+        itemsPerPage={articlesPerPage}
+        totalItems={topStoriesIds.length}
+        paginate={paginate}
+      />
     </div>
   );
 };
