@@ -36,6 +36,9 @@ const NewsArticle = ({
 
     switch (formattedTime) {
       case 0:
+        if (formattedTimeInMinutes === 1) {
+          return `${formattedTimeInMinutes} minute`;
+        }
         return `${formattedTimeInMinutes} minutes`;
 
       case 1:
