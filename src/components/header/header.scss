@@ -4,7 +4,7 @@ header {
   padding: 2px 5px;
   background-color: $orange;
   display: flex;
-  justify-content: space-between;
+  align-items: center;
 
   img {
     border: 1px white solid;
@@ -12,38 +12,12 @@ header {
     cursor: pointer;
   }
 
-  .left,
-  .right {
-    display: flex;
-  }
-
   span {
-    position: relative;
     margin: 0 10px;
-    display: inline-block;
-    vertical-align: middle;
     cursor: pointer;
-    &:after {
-      border: 1px solid black;
-      content: "";
-      height: 65%;
-      position: absolute;
-      right: -12px;
-      top: 12%;
-    }
-
-    &:last-child {
-      &::after {
-        content: none;
-      }
-    }
   }
 
   .name {
     font-weight: 700;
-
-    &::after {
-      border: none;
-    }
   }
 }
