@@ -8,11 +8,7 @@ import { formatArticlePostTime } from "../utils/utils";
 const CommentContainer = ({ directCommentsIds, parentId }) => {
   let allChildrenCommentsId = directCommentsIds || [];
 
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetchAndRenderAllComments(allChildrenCommentsId, setLoading);
-  }, [allChildrenCommentsId]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     return () => {
@@ -20,14 +16,15 @@ const CommentContainer = ({ directCommentsIds, parentId }) => {
     };
   });
 
+  useEffect(() => {
+    fetchAndRenderAllComments(allChildrenCommentsId, setLoading);
+  }, [allChildrenCommentsId]);
+
   const fetchAndRenderAllComments = async (
     listOfIds,
     changeLoadingIndicator
   ) => {
-    if (!listOfIds.length) {
-      changeLoadingIndicator(false);
-      return;
-    }
+    changeLoadingIndicator(true);
     while (listOfIds.length > 0) {
       const res = await axios.get(
         `https://hacker-news.firebaseio.com/v0/item/${listOfIds[0]}.json?print=pretty`

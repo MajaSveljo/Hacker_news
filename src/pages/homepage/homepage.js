@@ -3,6 +3,7 @@ import axios from "axios";
 
 import "./homepage.scss";
 
+import { fetchItem } from "../../components/utils/utils";
 import NewsArticle from "../../components/news-article/news-article";
 import Pagination from "../../components/pagination/pagination";
 
@@ -48,14 +49,6 @@ const HomePage = () => {
     );
 
     setTopStoriesIds(res.data);
-  };
-
-  const fetchItem = async (itemId) => {
-    const res = await axios.get(
-      `https://hacker-news.firebaseio.com/v0/item/${itemId}.json?print=pretty`
-    );
-
-    return res.data;
   };
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);

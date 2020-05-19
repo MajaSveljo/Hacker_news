@@ -37,7 +37,7 @@ const NewsArticle = ({
         </span>
         <span className="news-article__data-container--link">
           <a href={website} target="_blank" rel="noopener noreferrer">
-            {website ? `(${formatUrl(website)})` : ""}
+            {formatUrl(website)}
           </a>
         </span>
 

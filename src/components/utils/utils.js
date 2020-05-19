@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const formatUrl = (url) => {
   if (!url) {
     return "";
@@ -7,10 +9,13 @@ export const formatUrl = (url) => {
   if (formattedUrl.indexOf("www") === 0) {
     formattedUrl = formattedUrl.substr(4, formattedUrl.length);
   }
-  return formattedUrl;
+  return `(${formattedUrl})`;
 };
 
 export const formatArticlePostTime = (time) => {
+  if (!time) {
+    return null;
+  }
   let currentTimeInSeconds = new Date();
   currentTimeInSeconds = currentTimeInSeconds.getTime() / 1000;
 
@@ -37,6 +42,9 @@ export const formatArticlePostTime = (time) => {
 };
 
 export const formatCommentDisplayText = (numberOfComments) => {
+  if (!numberOfComments) {
+    return null;
+  }
   switch (numberOfComments) {
     case 0:
       return "no comments";
@@ -46,4 +54,12 @@ export const formatCommentDisplayText = (numberOfComments) => {
     default:
       return `${numberOfComments} comments`;
   }
+};
+
+export const fetchItem = async (itemId) => {
+  const res = await axios.get(
+    `https://hacker-news.firebaseio.com/v0/item/${itemId}.json?print=pretty`
+  );
+
+  return res.data;
 };
