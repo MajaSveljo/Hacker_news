@@ -20,6 +20,7 @@ const CommentsPage = ({ location }) => {
   const [kids, setKids] = useState(null);
   const [id] = useState(location.pathname.replace("/item/", ""));
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     if (location.state) {
       setHeader(location.state.header);
