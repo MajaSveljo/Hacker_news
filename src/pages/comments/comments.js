@@ -3,11 +3,11 @@ import React from "react";
 import "./comments.scss";
 
 import { formatUrl, formatArticlePostTime } from "../../components/utils/utils";
-import CommentContainer from "../../components/comment-container/comment-container";
+import CommentsContainer from "../../components/comments-container/comments-container";
 
 const CommentsPage = ({
   location: {
-    state: { header, website, points, user, time, commentsNumber, kids },
+    state: { header, website, points, user, time, commentsNumber, kids, id },
   },
 }) => (
   <div className="comments-page">
@@ -29,7 +29,7 @@ const CommentsPage = ({
       </div>
     </div>
 
-    <CommentContainer />
+    <CommentsContainer directCommentsIds={kids} parentId={id} />
   </div>
 );
 

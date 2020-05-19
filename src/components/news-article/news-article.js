@@ -20,20 +20,7 @@ const NewsArticle = ({
   history,
 }) => {
   return (
-    <div
-      className={"news-article " + className}
-      onClick={() =>
-        history.push(`item/${id}`, {
-          header,
-          website,
-          points,
-          user,
-          time,
-          commentsNumber,
-          kids,
-        })
-      }
-    >
+    <div className={"news-article " + className}>
       <span className="news-article__order-number">
         {orderNumber ? orderNumber : "0"}.
       </span>
@@ -53,7 +40,21 @@ const NewsArticle = ({
         <div className="news-article__data-container--properties">
           {points ? points : "00"} points by {user ? user : "user"}{" "}
           {time ? formatArticlePostTime(time) : "1 hour"} ago{" "}
-          <span className="pointer">
+          <span
+            className="pointer"
+            onClick={() =>
+              history.push(`item/${id}`, {
+                header,
+                website,
+                points,
+                user,
+                time,
+                commentsNumber,
+                kids,
+                id,
+              })
+            }
+          >
             {commentsNumber ? `${commentsNumber} comments` : "discuss"}
           </span>
         </div>
