@@ -6,7 +6,6 @@ import Header from "./components/header/header";
 import Footer from "./components/footer/footer";
 import HomePage from "./pages/homepage/homepage";
 import CommentsPage from "./pages/comments/comments";
-import AskPage from "./pages/ask";
 
 function App() {
   return (
@@ -15,7 +14,6 @@ function App() {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/item/:id" component={CommentsPage} />
-        <Route exact path="/ask" component={AskPage} />
       </Switch>
       <Footer />
     </div>
