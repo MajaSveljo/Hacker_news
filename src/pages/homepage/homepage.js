@@ -17,31 +17,37 @@ const HomePage = () => {
     fetchTopStoriesIds();
   }, []);
 
-  const getPaginatedCurrentPageData = async (itemsIds, currPage) => {
-    const currentIds = itemsIds.slice(
-      (currPage - 1) * articlesPerPage,
-      currPage * articlesPerPage
-    );
-
-    let items = await Promise.all(
-      currentIds.map(async (articleId) => {
-        let res = await fetchItem(articleId);
-        return res;
-      })
-    );
-
-    return items;
-  };
-
   useEffect(() => {
+    const getPaginatedCurrentPageData = async (
+      itemsIds,
+      currPage,
+      numberOfArticles
+    ) => {
+      const currentIds = itemsIds.slice(
+        (currPage - 1) * numberOfArticles,
+        currPage * numberOfArticles
+      );
+
+      let items = await Promise.all(
+        currentIds.map(async (articleId) => {
+          let res = await fetchItem(articleId);
+          return res;
+        })
+      );
+
+      return items;
+    };
+
     if (topStoriesIds.length) {
       setCurrentTopStories([]);
 
-      getPaginatedCurrentPageData(topStoriesIds, currentPage).then((items) =>
-        setCurrentTopStories(items)
-      );
+      getPaginatedCurrentPageData(
+        topStoriesIds,
+        currentPage,
+        articlesPerPage
+      ).then((items) => setCurrentTopStories(items));
     }
-  }, [topStoriesIds, currentPage]);
+  }, [topStoriesIds, currentPage, articlesPerPage]);
 
   const fetchTopStoriesIds = async () => {
     const res = await axios.get(

@@ -10,6 +10,7 @@ const CommentContainer = ({ directCommentsIds, parentId }) => {
 
   const [loading, setLoading] = useState(false);
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     return () => {
       allChildrenCommentsId = [];
