@@ -3,13 +3,9 @@ import React, { useState, useEffect } from "react";
 import "./comments-container.scss";
 
 import axios from "axios";
-import { fetchItem } from "../utils/utils";
 
 const CommentContainer = ({ directCommentsIds, parentId }) => {
-  const [directCommentsData] = useState([]);
-  let allChildrenCommentsId = directCommentsIds;
-
-  const [allChildrenCommentsData, setAllChildrenCommentsData] = useState([]);
+  let allChildrenCommentsId = directCommentsIds || [];
 
   const [loading, setLoading] = useState(true);
 
@@ -21,6 +17,10 @@ const CommentContainer = ({ directCommentsIds, parentId }) => {
     listOfIds,
     changeLoadingIndicator
   ) => {
+    if (!listOfIds.length) {
+      changeLoadingIndicator(false);
+      return;
+    }
     while (listOfIds.length > 0) {
       const res = await axios.get(
         `https://hacker-news.firebaseio.com/v0/item/${listOfIds[0]}.json?print=pretty`
@@ -79,10 +79,6 @@ const CommentContainer = ({ directCommentsIds, parentId }) => {
   return (
     <div className="comments-container" data-item-id={parentId}>
       {loading ? <div>Loading comments....</div> : null}
-
-      {allChildrenCommentsData.map((el) => (
-        <div>test</div>
-      ))}
     </div>
   );
 };
