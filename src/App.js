@@ -5,7 +5,7 @@ import "./App.css";
 import Header from "./components/header/header";
 import Footer from "./components/footer/footer";
 import HomePage from "./pages/homepage/homepage";
-import CommentsPage from "./pages/comments";
+import CommentsPage from "./pages/comments/comments";
 import AskPage from "./pages/ask";
 
 function App() {

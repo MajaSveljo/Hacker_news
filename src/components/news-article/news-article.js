@@ -2,8 +2,17 @@ import React from "react";
 
 import "./news-article.scss";
 
+import {
+  formatUrl,
+  formatArticlePostTime,
+  formatCommentDisplayText,
+} from "../utils/utils";
+
+import { withRouter } from "react-router-dom";
+
 const NewsArticle = ({
   className,
+  id,
   orderNumber,
   header,
   website,
@@ -11,44 +20,9 @@ const NewsArticle = ({
   user,
   time,
   commentsNumber,
+  kids,
+  history,
 }) => {
-  const formatUrl = (url) => {
-    let formattedUrl = url.split("/")[2];
-
-    if (formattedUrl.indexOf("www") === 0) {
-      formattedUrl = formattedUrl.substr(4, formattedUrl.length);
-    }
-    return formattedUrl;
-  };
-
-  const formatArticlePostTime = (time) => {
-    let currentTimeInSeconds = new Date();
-    currentTimeInSeconds = currentTimeInSeconds.getTime() / 1000;
-
-    const formattedTime = Math.floor((currentTimeInSeconds - time) / 60 / 60);
-    const formattedTimeInMinutes = Math.floor(
-      (currentTimeInSeconds - time) / 60
-    );
-
-    if (formattedTime > 23) {
-      return "1 day";
-    }
-
-    switch (formattedTime) {
-      case 0:
-        if (formattedTimeInMinutes === 1) {
-          return `${formattedTimeInMinutes} minute`;
-        }
-        return `${formattedTimeInMinutes} minutes`;
-
-      case 1:
-        return `${formattedTime} hour`;
-
-      default:
-        return `${formattedTime} hours`;
-    }
-  };
-
   return (
     <div className={"news-article " + className}>
       <span className="news-article__order-number">
@@ -63,15 +37,29 @@ const NewsArticle = ({
         </span>
         <span className="news-article__data-container--link">
           <a href={website} target="_blank" rel="noopener noreferrer">
-            {website ? `(${formatUrl(website)})` : ""}
+            {formatUrl(website)}
           </a>
         </span>
 
         <div className="news-article__data-container--properties">
           {points ? points : "00"} points by {user ? user : "user"}{" "}
           {time ? formatArticlePostTime(time) : "1 hour"} ago{" "}
-          <span className="pointer">
-            {commentsNumber ? `${commentsNumber} comments` : "discuss"}
+          <span
+            className="pointer"
+            onClick={() =>
+              history.push(`item/${id}`, {
+                header,
+                website,
+                points,
+                user,
+                time,
+                commentsNumber,
+                kids,
+                id,
+              })
+            }
+          >
+            {formatCommentDisplayText(commentsNumber)}
           </span>
         </div>
       </div>
@@ -79,4 +67,4 @@ const NewsArticle = ({
   );
 };
 
-export default NewsArticle;
+export default withRouter(NewsArticle);

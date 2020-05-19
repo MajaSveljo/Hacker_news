@@ -1,0 +1,28 @@
+@import "../../colors.scss";
+
+.comments-page {
+  background-color: $background-gray;
+  padding: 10px;
+
+  a {
+    text-decoration: none;
+  }
+
+  &__article {
+    font-size: 8pt;
+    margin-bottom: 40px;
+    * {
+      color: $text-gray;
+    }
+
+    .header {
+      color: black;
+      margin-right: 5px;
+      font-size: 10pt;
+    }
+
+    &--properties {
+      margin-top: 3px;
+    }
+  }
+}
