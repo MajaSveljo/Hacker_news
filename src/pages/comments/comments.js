@@ -2,7 +2,11 @@ import React from "react";
 
 import "./comments.scss";
 
-import { formatUrl, formatArticlePostTime } from "../../components/utils/utils";
+import {
+  formatUrl,
+  formatArticlePostTime,
+  formatCommentDisplayText,
+} from "../../components/utils/utils";
 import CommentsContainer from "../../components/comments-container/comments-container";
 
 const CommentsPage = ({
@@ -25,7 +29,7 @@ const CommentsPage = ({
       </a>
       <div className="comments-page__article--properties">
         {points} points by {user} {formatArticlePostTime(time)} ago{" "}
-        {commentsNumber ? `${commentsNumber}` : "no"} comments
+        {formatCommentDisplayText(commentsNumber)}
       </div>
     </div>
 

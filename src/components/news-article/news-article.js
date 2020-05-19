@@ -2,7 +2,11 @@ import React from "react";
 
 import "./news-article.scss";
 
-import { formatUrl, formatArticlePostTime } from "../utils/utils";
+import {
+  formatUrl,
+  formatArticlePostTime,
+  formatCommentDisplayText,
+} from "../utils/utils";
 
 import { withRouter } from "react-router-dom";
 
@@ -55,7 +59,7 @@ const NewsArticle = ({
               })
             }
           >
-            {commentsNumber ? `${commentsNumber}` : "no"} comments
+            {formatCommentDisplayText(commentsNumber)}
           </span>
         </div>
       </div>

@@ -35,3 +35,15 @@ export const formatArticlePostTime = (time) => {
       return `${formattedTime} hours`;
   }
 };
+
+export const formatCommentDisplayText = (numberOfComments) => {
+  switch (numberOfComments) {
+    case 0:
+      return "no comments";
+    case 1:
+      return `${numberOfComments} comment`;
+
+    default:
+      return `${numberOfComments} comments`;
+  }
+};
