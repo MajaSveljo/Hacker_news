@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import "./comments-container.scss";
 
 import axios from "axios";
+import { formatArticlePostTime } from "../utils/utils";
 
 const CommentContainer = ({ directCommentsIds, parentId }) => {
   let allChildrenCommentsId = directCommentsIds || [];
@@ -47,7 +48,7 @@ const CommentContainer = ({ directCommentsIds, parentId }) => {
         user.innerHTML = res.data.by;
 
         let timeAgo = document.createElement("span");
-        timeAgo.innerHTML = res.data.time;
+        timeAgo.innerHTML = formatArticlePostTime(res.data.time);
 
         let hide = document.createElement("span");
         hide.innerHTML = "hide comment";
@@ -99,9 +100,11 @@ const CommentContainer = ({ directCommentsIds, parentId }) => {
             e.target.parentNode.parentNode.childNodes[1].classList.remove(
               "hidden"
             );
+            e.target.innerHTML = "hide comment";
             return;
           }
           e.target.parentNode.parentNode.childNodes[1].classList.add("hidden");
+          e.target.innerHTML = "show comment";
         };
       }
     }
