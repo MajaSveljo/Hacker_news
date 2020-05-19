@@ -55,7 +55,7 @@ const NewsArticle = ({
               })
             }
           >
-            {commentsNumber ? `${commentsNumber} comments` : "discuss"}
+            {commentsNumber ? `${commentsNumber}` : "no"} comments
           </span>
         </div>
       </div>

@@ -25,7 +25,7 @@ const CommentsPage = ({
       </a>
       <div className="comments-page__article--properties">
         {points} points by {user} {formatArticlePostTime(time)} ago{" "}
-        {commentsNumber ? `${commentsNumber} comments` : "discuss"}
+        {commentsNumber ? `${commentsNumber}` : "no"} comments
       </div>
     </div>
 

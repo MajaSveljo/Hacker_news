@@ -13,6 +13,12 @@ const CommentContainer = ({ directCommentsIds, parentId }) => {
     fetchAndRenderAllComments(allChildrenCommentsId, setLoading);
   }, [allChildrenCommentsId]);
 
+  useEffect(() => {
+    return () => {
+      allChildrenCommentsId = [];
+    };
+  });
+
   const fetchAndRenderAllComments = async (
     listOfIds,
     changeLoadingIndicator
@@ -31,21 +37,42 @@ const CommentContainer = ({ directCommentsIds, parentId }) => {
           listOfIds = [...listOfIds, ...arrayOfResponseIds];
         }
 
-        let divElement = document.createElement("div");
-        divElement.innerHTML = listOfIds[0];
-        divElement.setAttribute("data-item-id", `${listOfIds[0]}`);
-        divElement.className = "margin-div";
-        divElement.innerHTML = res.data.text;
+        let container = document.createElement("div");
+        container.className = "comment-container";
 
-        // let divHide = document.createElement("div");
-        // divHide.innerHTML = "hide";
-        // divHide.className = "red";
-        // divElement.appendChild(divHide);
+        let headingRow = document.createElement("div");
+        headingRow.className = "heading-row";
 
-        const parent = document.querySelector(
-          `[data-item-id='${res.data.parent}']`
-        );
-        parent.appendChild(divElement);
+        let user = document.createElement("span");
+        user.innerHTML = res.data.by;
+
+        let timeAgo = document.createElement("span");
+        timeAgo.innerHTML = res.data.time;
+
+        let hide = document.createElement("span");
+        hide.innerHTML = "hide comment";
+        hide.className = "hide-comment";
+
+        let content = document.createElement("div");
+        content.className = "content";
+        content.setAttribute("data-item-id", `${listOfIds[0]}`);
+        content.innerHTML = res.data.text;
+
+        try {
+          container.appendChild(headingRow);
+          headingRow.appendChild(user);
+          headingRow.appendChild(timeAgo);
+          headingRow.appendChild(hide);
+          container.appendChild(content);
+
+          const parent = document.querySelector(
+            `[data-item-id='${res.data.parent}']`
+          );
+
+          parent.appendChild(container);
+        } catch {
+          return;
+        }
       }
 
       listOfIds.shift();
@@ -56,29 +83,33 @@ const CommentContainer = ({ directCommentsIds, parentId }) => {
     }
   };
 
-  // hiding/showing comments basic logic
+  useEffect(() => {
+    if (!loading) {
+      const test = document.querySelectorAll(".hide-comment");
 
-  // useEffect(() => {
-  //   if (!loading) {
-  //     const test = document.querySelectorAll(".red");
+      for (let i = 0; i < test.length; i += 1) {
+        let help = test[i];
 
-  //     for (let i = 0; i < test.length; i += 1) {
-  //       let help = test[i];
-
-  //       help.onclick = function (e) {
-  //         if (e.target.parentNode.classList.contains("red")) {
-  //           e.target.parentNode.classList.remove("red");
-  //           return;
-  //         }
-  //         e.target.parentNode.classList.add("red");
-  //       };
-  //     }
-  //   }
-  // }, [loading]);
+        help.onclick = function (e) {
+          if (
+            e.target.parentNode.parentNode.childNodes[1].classList.contains(
+              "hidden"
+            )
+          ) {
+            e.target.parentNode.parentNode.childNodes[1].classList.remove(
+              "hidden"
+            );
+            return;
+          }
+          e.target.parentNode.parentNode.childNodes[1].classList.add("hidden");
+        };
+      }
+    }
+  }, [loading]);
 
   return (
     <div className="comments-container" data-item-id={parentId}>
-      {loading ? <div>Loading comments....</div> : null}
+      {loading ? <div className="loading">Loading comments....</div> : null}
     </div>
   );
 };

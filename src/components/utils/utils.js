@@ -1,4 +1,7 @@
 export const formatUrl = (url) => {
+  if (!url) {
+    return "";
+  }
   let formattedUrl = url.split("/")[2];
 
   if (formattedUrl.indexOf("www") === 0) {

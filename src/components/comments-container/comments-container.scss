@@ -1,10 +1,32 @@
+@import "../../colors.scss";
+
 .comments-container {
-}
+  .comment-container {
+    margin: 15px 10px;
+  }
 
-.margin-div {
-  margin: 10px;
-}
+  .heading-row {
+    font-size: 8pt;
+    color: $text-gray;
+  }
 
-.red {
-  background-color: red;
+  .content.hidden,
+  .content.hidden * {
+    display: none;
+  }
+
+  span {
+    margin-right: 8px;
+  }
+
+  a {
+    color: black;
+  }
+
+  .loading {
+    background-color: $orange;
+    font-size: 10pt;
+    text-align: center;
+    padding: 5px;
+  }
 }
