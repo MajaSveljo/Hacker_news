@@ -57,7 +57,10 @@ const HomePage = () => {
     setTopStoriesIds(res.data);
   };
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber) => {
+    fetchTopStoriesIds();
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <div className="homepage">
