@@ -1,0 +1,49 @@
+@import "../../colors.scss";
+
+.news-article {
+  padding: 5px 10px;
+  display: flex;
+
+  &__order-number {
+    color: $text-gray;
+    font-size: 10pt;
+    margin-right: 10px;
+  }
+
+  &__data-container {
+    &--header {
+      margin-right: 5px;
+      font-size: 10pt;
+
+      a {
+        text-decoration: none;
+        color: black;
+      }
+    }
+
+    &--link {
+      a {
+        font-size: 8pt;
+        color: $text-gray;
+        cursor: pointer;
+        text-decoration: none;
+      }
+    }
+
+    &--properties {
+      color: $text-gray;
+      font-size: 7pt;
+
+      .pointer {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.news-article.placeholder {
+  * {
+    background-color: $text-gray;
+    color: $text-gray;
+  }
+}

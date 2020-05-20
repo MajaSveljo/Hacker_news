@@ -1,0 +1,23 @@
+@import "../../colors.scss";
+
+header {
+  padding: 2px 5px;
+  background-color: $orange;
+  display: flex;
+  align-items: center;
+
+  img {
+    border: 1px white solid;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+
+  span {
+    margin: 0 10px;
+    cursor: pointer;
+  }
+
+  .name {
+    font-weight: 700;
+  }
+}
