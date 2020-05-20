@@ -21,6 +21,11 @@ const CommentContainer = ({ directCommentsIds, parentId }) => {
     fetchAndRenderAllComments(allChildrenCommentsId, setLoading);
   }, [allChildrenCommentsId]);
 
+  /**
+   * Fetches and appends all comments, their children comments and hide comment elements to their parent container
+   * @param {Array<number>} listOfIds - list of comment ids direct to article
+   * @param {function} changeLoadingIndicator - setState hook of loading variable to be changed
+   */
   const fetchAndRenderAllComments = async (
     listOfIds,
     changeLoadingIndicator
@@ -84,12 +89,10 @@ const CommentContainer = ({ directCommentsIds, parentId }) => {
 
   useEffect(() => {
     if (!loading) {
-      const test = document.querySelectorAll(".hide-comment");
+      const allHideElements = document.querySelectorAll(".hide-comment");
 
-      for (let i = 0; i < test.length; i += 1) {
-        let help = test[i];
-
-        help.onclick = function (e) {
+      for (let i = 0; i < allHideElements.length; i += 1) {
+        allHideElements[i].onclick = function (e) {
           if (
             e.target.parentNode.parentNode.childNodes[1].classList.contains(
               "hidden"
