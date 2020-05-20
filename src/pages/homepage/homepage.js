@@ -1,3 +1,7 @@
+/**
+ * homepage page container
+ */
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -18,6 +22,15 @@ const HomePage = () => {
   }, []);
 
   useEffect(() => {
+    /**
+     * Get paginated data
+     * @async
+     * @method
+     * @param {Array<number>} itemsIds - array of all available ids
+     * @param {number} currPage - number of the current page
+     * @param {number} numberOfArticles - number of articles per page
+     * @returns Promise - when resolved gives data for current page
+     */
     const getPaginatedCurrentPageData = async (
       itemsIds,
       currPage,
@@ -49,6 +62,11 @@ const HomePage = () => {
     }
   }, [topStoriesIds, currentPage, articlesPerPage]);
 
+  /**
+   * Fetches topstories from it's link
+   * @method
+   * @async
+   */
   const fetchTopStoriesIds = async () => {
     const res = await axios.get(
       "https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty"
@@ -57,6 +75,11 @@ const HomePage = () => {
     setTopStoriesIds(res.data);
   };
 
+  /**
+   * Sets current page number and runs fetchTopStoriesIds
+   * @method
+   * @param {number} pageNumber
+   */
   const paginate = (pageNumber) => {
     fetchTopStoriesIds();
     setCurrentPage(pageNumber);
