@@ -21,6 +21,7 @@ const HomePage = () => {
     fetchTopStoriesIds();
   }, []);
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     /**
      * Get paginated data
@@ -60,7 +61,7 @@ const HomePage = () => {
         articlesPerPage
       ).then((items) => setCurrentTopStories(items));
     }
-  }, [topStoriesIds, currentPage, articlesPerPage]);
+  }, [topStoriesIds]);
 
   /**
    * Fetches topstories from it's link
@@ -110,6 +111,7 @@ const HomePage = () => {
         itemsPerPage={articlesPerPage}
         totalItems={topStoriesIds.length}
         paginate={paginate}
+        currentPage={currentPage}
       />
     </div>
   );
