@@ -111,6 +111,7 @@ const HomePage = () => {
         itemsPerPage={articlesPerPage}
         totalItems={topStoriesIds.length}
         paginate={paginate}
+        currentPage={currentPage}
       />
     </div>
   );
